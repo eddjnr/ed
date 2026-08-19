@@ -1,16 +1,17 @@
 <script lang="ts">
 	import '@fontsource-variable/onest/wght.css';
 	import './layout.css';
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 
 	let { children } = $props();
 
 	const navItems = [
 		{ label: 'Projects', href: '/projects' },
-		{ label: 'History', href: '/history' },
+		{ label: 'About', href: '/about' },
 		{ label: 'Writing', href: '/posts' },
 		{ label: 'Contact', href: '/contact' }
-	];
+	] as const;
 
 	function isCurrentRoute(href: string) {
 		return page.url.pathname === href || page.url.pathname.startsWith(`${href}/`);
@@ -31,7 +32,7 @@
 <div class="site">
 	<header>
 		<div class="shell header-inner">
-			<a class="home-link" href="/" aria-label="Ed, home">
+			<a class="home-link" href={resolve('/')} aria-label="Ed, home">
 				<img
 					src="/logo.png"
 					alt=""
@@ -43,7 +44,7 @@
 			<nav aria-label="Main navigation">
 				{#each navItems as item (item.href)}
 					<a
-						href={item.href}
+						href={resolve(item.href)}
 						class:active={isCurrentRoute(item.href)}
 						aria-current={isCurrentRoute(item.href) ? 'page' : undefined}
 					>

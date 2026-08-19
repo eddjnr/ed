@@ -3,14 +3,14 @@
 </script>
 
 <svelte:head>
-	<title>History — Ed</title>
-	<meta name="description" content="Ed's professional experience and education." />
+	<title>About — Ed</title>
+	<meta name="description" content="About Ed, his professional experience and education." />
 </svelte:head>
 
 <div class="page">
 	<header class="reveal">
 		<span class="eyebrow">Career · 2019–Present</span>
-		<h1 class="page-title">History</h1>
+		<h1 class="page-title">About</h1>
 		<p class="lede">Professional experience building product interfaces and frontend systems.</p>
 	</header>
 
@@ -20,7 +20,7 @@
 			<span>03 roles</span>
 		</div>
 		<div class="history-list">
-			{#each experience as item, index}
+			{#each experience as item, index (item.company)}
 				<article class="history-row">
 					<span class="history-index" aria-hidden="true">0{index + 1}</span>
 					<div class="history-copy">
@@ -43,7 +43,7 @@
 			<span>01 degree · 02 certificates</span>
 		</div>
 		<div class="history-list">
-			{#each education as item}
+			{#each education as item (item.index)}
 				<article class="history-row">
 					<span class="history-index" aria-hidden="true">{item.index}</span>
 					<div class="history-copy">

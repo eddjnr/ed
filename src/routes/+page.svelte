@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import ProjectCard from '$lib/components/project-card.svelte';
 	import { experience } from '$lib/data/history';
 	import { featuredProjects } from '$lib/data/projects';
@@ -114,13 +115,13 @@
 			</h2>
 		</div>
 		<div class="grid grid-cols-1 gap-3">
-			{#each featuredProjects as project}
+			{#each featuredProjects as project (project.slug)}
 				<ProjectCard {project} variant="compact" />
 			{/each}
 		</div>
 		<a
 			class="mt-2 inline-flex min-h-11 items-center text-xs text-[var(--muted)] no-underline transition-[color,transform,scale] duration-[160ms] ease-out hover:-translate-y-px hover:text-[var(--ink)] active:scale-[0.96]"
-			href="/projects">View all projects <span aria-hidden="true">→</span></a
+			href={resolve('/projects')}>View all projects <span aria-hidden="true">→</span></a
 		>
 	</section>
 
@@ -134,10 +135,10 @@
 			</h2>
 		</div>
 		<div class="border-t border-[var(--line)]">
-			{#each experience as item, index}
+			{#each experience as item, index (item.company)}
 				<a
 					class="group relative grid min-h-26 grid-cols-[1.5rem_minmax(0,1fr)_1rem] items-start gap-4 border-b border-[var(--line)] py-5 text-[var(--ink)] no-underline transition-transform duration-[160ms] ease-out active:scale-[0.96] max-[42rem]:min-h-0 max-[42rem]:grid-cols-[1.25rem_minmax(0,1fr)_1rem] max-[42rem]:gap-3"
-					href="/history"
+					href={resolve('/about')}
 				>
 					<span
 						class="pt-[0.15rem] [font-family:var(--mono)] text-[0.625rem] text-[var(--quiet)] tabular-nums"
@@ -168,7 +169,7 @@
 		</div>
 		<a
 			class="mt-2 inline-flex min-h-11 items-center text-xs text-[var(--muted)] no-underline transition-[color,transform,scale] duration-[160ms] ease-out hover:-translate-y-px hover:text-[var(--ink)] active:scale-[0.96]"
-			href="/history">View full history <span aria-hidden="true">→</span></a
+			href={resolve('/about')}>More about me <span aria-hidden="true">→</span></a
 		>
 	</section>
 
