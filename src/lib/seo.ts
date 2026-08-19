@@ -8,8 +8,3 @@ export const site = {
   logo: "/logo.png",
   socialImage: "/me.jpeg",
 } as const;
-
-export type FaqItem = {
-  question: string;
-  answer: string;
-};

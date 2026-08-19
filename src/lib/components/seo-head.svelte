@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { site, type FaqItem } from "$lib/seo";
+  import { site } from "$lib/seo";
 
   let {
     title,
@@ -7,14 +7,12 @@
     path,
     type = "WebPage",
     publishedTime,
-    faqs = [],
   }: {
     title: string;
     description: string;
     path: string;
     type?: "WebPage" | "Article";
     publishedTime?: string;
-    faqs?: FaqItem[];
   } = $props();
 
   const absoluteUrl = (value: string) => new URL(value, site.url).toString();
@@ -85,22 +83,6 @@
           : {}),
       },
     ];
-
-    if (faqs.length > 0) {
-      graph.push({
-        "@type": "FAQPage",
-        "@id": `${canonical}#faq`,
-        url: canonical,
-        mainEntity: faqs.map((faq) => ({
-          "@type": "Question",
-          name: faq.question,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: faq.answer,
-          },
-        })),
-      });
-    }
 
     return { "@context": "https://schema.org", "@graph": graph };
   });
