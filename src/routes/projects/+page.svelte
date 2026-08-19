@@ -16,7 +16,7 @@
 	</header>
 
 	<section class="project-grid reveal" style="--delay: 80ms" aria-label="Projects">
-		{#each projects as project}
+		{#each projects as project (project.slug)}
 			<ProjectCard {project} variant="compact" />
 		{/each}
 	</section>

@@ -8,15 +8,12 @@ export type ProjectCardData = {
   year?: string;
 };
 
-export type Project = ProjectCardData & { homeDescription?: string };
-
-export const projects: Project[] = [
+export const projects: ProjectCardData[] = [
   {
     slug: "kasho",
     title: "Kasho",
     detail: "Personal finance",
     description: "A local-first personal finance system for understanding and organizing money.",
-    homeDescription: "A calmer way to understand and organize your money.",
     href: "https://www.kasho.com.br/",
     tags: "Fullstack · Redis · Postgres",
     year: "2026",
@@ -26,7 +23,6 @@ export const projects: Project[] = [
     title: "Aeronotch",
     detail: "Windows utility",
     description: "A compact screen-top utility for a cleaner Windows desktop.",
-    homeDescription: "A compact companion for a cleaner Windows desktop.",
     href: "https://aeronotch.vercel.app/",
     tags: "Tauri · Rust · React",
     year: "2025",
@@ -57,7 +53,4 @@ export const projects: Project[] = [
   },
 ];
 
-export const featuredProjects: ProjectCardData[] = projects.slice(0, 2).map((project) => ({
-  ...project,
-  description: project.homeDescription ?? project.description,
-}));
+export const featuredProjects: ProjectCardData[] = projects.slice(0, 2);
