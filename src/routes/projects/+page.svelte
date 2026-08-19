@@ -1,12 +1,14 @@
 <script lang="ts">
+	import SeoHead from '$lib/components/seo-head.svelte';
 	import ProjectCard from '$lib/components/project-card.svelte';
 	import { projects } from '$lib/data/projects';
 </script>
 
-<svelte:head>
-	<title>Projects — Ed</title>
-	<meta name="description" content="Selected projects by Ed." />
-</svelte:head>
+<SeoHead
+	title="Software Projects by Ed"
+	description="Explore Ed's selected software projects across personal finance, Windows utilities, productivity, realtime applications and IoT research."
+	path="/projects"
+/>
 
 <div class="page">
 	<header class="reveal">

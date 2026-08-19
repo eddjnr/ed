@@ -19,11 +19,6 @@
 </script>
 
 <svelte:head>
-	<title>Ed — Software Engineer</title>
-	<meta
-		name="description"
-		content="Ed is a software engineer working with frontend architecture, design systems and digital products."
-	/>
 	<meta name="theme-color" content="#0a0a0a" />
 </svelte:head>
 

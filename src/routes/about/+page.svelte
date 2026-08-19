@@ -1,11 +1,13 @@
 <script lang="ts">
+	import SeoHead from '$lib/components/seo-head.svelte';
 	import { education, experience } from '$lib/data/history';
 </script>
 
-<svelte:head>
-	<title>About — Ed</title>
-	<meta name="description" content="About Ed, his professional experience and education." />
-</svelte:head>
+<SeoHead
+	title="About Ed — Software Engineer"
+	description="Learn about Ed's software engineering experience, frontend specialization, education and professional credentials."
+	path="/about"
+/>
 
 <div class="page">
 	<header class="reveal">

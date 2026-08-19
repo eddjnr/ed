@@ -24,5 +24,5 @@ export const load: PageLoad = async ({ params }) => {
   if (!metadata.published) throw error(404, `Post "${params.slug}" not found`);
 
   const post = await loadPost();
-  return { content: post.default, metadata };
+  return { content: post.default, metadata, slug: params.slug };
 };

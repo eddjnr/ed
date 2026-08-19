@@ -1,4 +1,12 @@
-<svelte:head><title>Contact — Ed</title><meta name="description" content="Contact Ed." /></svelte:head>
+<script lang="ts">
+	import SeoHead from '$lib/components/seo-head.svelte';
+</script>
+
+<SeoHead
+	title="Contact Ed — Software Engineer"
+	description="Contact Ed by email or connect through GitHub and LinkedIn to discuss software engineering, frontend systems and product work."
+	path="/contact"
+/>
 
 <div class="page">
 	<header class="reveal"><h1>Contact</h1><p>The best way to reach me is by email.</p></header>

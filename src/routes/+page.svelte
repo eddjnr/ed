@@ -1,17 +1,18 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import SeoHead from '$lib/components/seo-head.svelte';
 	import ProjectCard from '$lib/components/project-card.svelte';
+	import { homeFaqs } from '$lib/data/faq';
 	import { experience } from '$lib/data/history';
 	import { featuredProjects } from '$lib/data/projects';
 </script>
 
-<svelte:head>
-	<title>Ed</title>
-	<meta
-		name="description"
-		content="Portfolio of Ed, a software engineer working with frontend architecture, design systems and digital products."
-	/>
-</svelte:head>
+<SeoHead
+	title="Ed — Frontend Software Engineer"
+	description="Portfolio of Ed, a software engineer specializing in frontend architecture, design systems and thoughtful digital products."
+	path="/"
+	faqs={homeFaqs}
+/>
 
 <div class="page pt-[clamp(2rem,12vw,3rem)]">
 	<section class="reveal" aria-labelledby="intro-title">
@@ -171,6 +172,54 @@
 			class="mt-2 inline-flex min-h-11 items-center text-xs text-[var(--muted)] no-underline transition-[color,transform,scale] duration-[160ms] ease-out hover:-translate-y-px hover:text-[var(--ink)] active:scale-[0.96]"
 			href={resolve('/about')}>More about me <span aria-hidden="true">→</span></a
 		>
+	</section>
+
+	<section class="reveal mt-[5.5rem]" style="--delay: 170ms" aria-labelledby="work-title">
+		<h2 class="text-base font-semibold tracking-[-0.015em] text-[var(--ink)]" id="work-title">
+			What I work on
+		</h2>
+		<p class="mt-3 max-w-[38rem] text-[var(--muted)]">
+			I turn product requirements into maintainable interfaces and frontend systems. That work
+			includes deciding how an application should be structured, defining reusable UI patterns,
+			connecting interfaces to reliable data flows and refining the small interactions that shape the
+			overall experience. I care about making software understandable for the people using it and for
+			the engineers who will maintain it later.
+		</p>
+		<ul class="mt-5 grid list-disc gap-3 pl-5 text-[var(--muted)] marker:text-[var(--quiet)]">
+			<li>
+				<strong class="text-[var(--ink)]">Frontend architecture:</strong> clear component boundaries,
+				predictable state management and pragmatic technical decisions that can evolve with a product.
+			</li>
+			<li>
+				<strong class="text-[var(--ink)]">Design systems:</strong> accessible components, consistent
+				tokens and shared interaction patterns that help teams move faster without losing quality.
+			</li>
+			<li>
+				<strong class="text-[var(--ink)]">Product engineering:</strong> collaborating across design and
+				engineering to turn ambiguous problems into focused, useful software.
+			</li>
+			<li>
+				<strong class="text-[var(--ink)]">Performance and accessibility:</strong> responsive experiences
+				that load efficiently, work with assistive technology and remain usable across devices.
+			</li>
+		</ul>
+	</section>
+
+	<section class="reveal mt-[5.5rem]" style="--delay: 190ms" aria-labelledby="faq-title">
+		<h2 class="text-base font-semibold tracking-[-0.015em] text-[var(--ink)]" id="faq-title">
+			Frequently asked questions
+		</h2>
+		<p class="mt-3 max-w-[38rem] text-[var(--muted)]">
+			A quick overview of my background, technical focus and the best way to get in touch.
+		</p>
+		<dl class="mt-6 border-t border-[var(--line)]">
+			{#each homeFaqs as faq}
+				<div class="border-b border-[var(--line)] py-5">
+					<dt class="font-semibold text-[var(--ink)]">{faq.question}</dt>
+					<dd class="mt-2 max-w-[38rem] text-[var(--muted)]">{faq.answer}</dd>
+				</div>
+			{/each}
+		</dl>
 	</section>
 
 	<section

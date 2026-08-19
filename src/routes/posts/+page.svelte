@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { formatCalendarDate } from '$lib/utils/date';
+	import SeoHead from '$lib/components/seo-head.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 </script>
 
-<svelte:head>
-	<title>Writing — Ed</title>
-	<meta name="description" content="Notes by Ed." />
-</svelte:head>
+<SeoHead
+	title="Software Engineering Articles by Ed"
+	description="Read Ed's notes on frontend architecture, software engineering, product development, web technologies and AI-assisted development."
+	path="/posts"
+/>
 
 <div class="page">
 	<header class="reveal">

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ListIcon from '@lucide/svelte/icons/list';
 	import { copyableCode } from '$lib/actions/copyable-code';
+	import SeoHead from '$lib/components/seo-head.svelte';
 	import { formatCalendarDate } from '$lib/utils/date';
 	import type { PageData } from './$types';
 	let { data }: { data: PageData } = $props();
@@ -83,12 +84,13 @@
 	}
 </script>
 
-<svelte:head
-	><title>{data.metadata.title} — Ed</title><meta
-		name="description"
-		content={data.metadata.description}
-	/></svelte:head
->
+<SeoHead
+	title={`${data.metadata.title} — Ed`}
+	description={data.metadata.description}
+	path={`/posts/${data.slug}`}
+	type="Article"
+	publishedTime={data.metadata.date}
+/>
 
 <article class="page w-full">
 	<div class="block">
