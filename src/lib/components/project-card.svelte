@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ArrowUpRight from '@lucide/svelte/icons/arrow-up-right';
 	import ProjectIcon from '$lib/components/project-icon.svelte';
 	import type { ProjectCardData } from '$lib/data/projects';
 
@@ -49,11 +50,12 @@
 				data-variant={variant}>{project.tags}</span
 			>{/if}
 	</div>
-	<span
-		class="absolute text-[0.8125rem] text-[var(--quiet)] transition-[color,transform] duration-[180ms] ease-out group-hover:translate-x-[0.1rem] group-hover:-translate-y-[0.1rem] group-hover:text-[var(--ink)] data-[variant=compact]:top-3 data-[variant=compact]:left-18 data-[variant=featured]:top-4 data-[variant=featured]:right-4 max-[42rem]:data-[variant=compact]:left-15"
+	<ArrowUpRight
+		class="absolute size-3.5 text-[var(--quiet)] transition-[color,transform] duration-[180ms] ease-out group-hover:translate-x-[0.1rem] group-hover:-translate-y-[0.1rem] group-hover:text-[var(--ink)] data-[variant=compact]:top-3 data-[variant=compact]:left-18 data-[variant=featured]:top-4 data-[variant=featured]:right-4 max-[42rem]:data-[variant=compact]:left-15"
 		data-variant={variant}
-		aria-hidden="true">↗</span
-	>
+		strokeWidth={1.5}
+		aria-hidden="true"
+	/>
 	<span class="sr-only">Opens in a new tab</span>
 </a>
 <!-- eslint-enable svelte/no-navigation-without-resolve -->

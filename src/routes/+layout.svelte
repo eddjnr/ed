@@ -188,16 +188,17 @@
 		}
 
 		.header-inner {
-			align-items: flex-start;
-			flex-direction: column;
-			gap: 0;
+			gap: 0.875rem;
 		}
 
 		nav {
-			width: 100%;
-			flex-wrap: wrap;
-			justify-content: space-between;
-			gap: 0.5rem;
+			min-width: 0;
+			margin-inline-start: auto;
+			gap: clamp(0.65rem, 3.5vw, 1.5rem);
+		}
+
+		nav a {
+			font-size: 0.6875rem;
 		}
 	}
 </style>
