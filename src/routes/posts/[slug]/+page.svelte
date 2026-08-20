@@ -202,19 +202,57 @@
 		text-decoration-color: var(--accent);
 	}
 	.prose :global(.code-frame) {
-		position: relative;
 		margin: 2rem 0;
+		overflow: hidden;
+		border-radius: 0.625rem;
+		background: #0c0c0c;
+		box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+	}
+	.prose :global(.code-header) {
+		display: flex;
+		min-height: 2.875rem;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0 0.35rem 0 1rem;
+		border-bottom: 1px solid var(--line);
+		background: var(--surface);
+	}
+	.prose :global(.code-meta) {
+		display: flex;
+		min-width: 0;
+		align-items: center;
+		gap: 0.55rem;
+		font-family: var(--mono);
+		font-size: 0.75rem;
+		font-weight: 600;
+		line-height: 1.3;
+	}
+	.prose :global(.code-language-icon) {
+		display: grid;
+		flex: none;
+		place-items: center;
+		color: #22d3ee;
+	}
+	.prose :global(.code-title) {
+		overflow: hidden;
+		color: var(--muted);
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	.prose :global(pre) {
 		overflow-x: auto;
 		margin: 2rem 0;
-		padding: 1.25rem 5.5rem 1.25rem 1.25rem;
+		padding: 1.25rem;
 		border-radius: 0.5rem;
 		background: var(--surface);
 		box-shadow: inset 0 0 0 1px var(--line);
 	}
 	.prose :global(.code-frame pre) {
 		margin: 0;
+		border-radius: 0;
+		background: #0c0c0c;
+		box-shadow: none;
 	}
 	.prose :global(code) {
 		font-family: var(--mono);
@@ -227,32 +265,46 @@
 		color: var(--ink);
 	}
 	.prose :global(.copy-code) {
-		position: absolute;
-		top: 0.75rem;
-		right: 0.75rem;
+		position: relative;
 		display: grid;
-		width: 2.5rem;
-		height: 2.5rem;
+		width: 2rem;
+		height: 2rem;
 		place-items: center;
 		padding: 0;
-		border: 1px solid var(--line);
+		border: 0;
 		border-radius: 0.3rem;
-		background: var(--raised);
+		background: transparent;
 		color: var(--muted);
 		cursor: pointer;
-		transition-property: border-color, color, background-color, scale;
+		touch-action: manipulation;
+		transition-property: color, background-color, scale;
 		transition-duration: 160ms;
 	}
-	.prose :global(.copy-code:hover) {
-		border-color: #383838;
-		background: #1b1b1b;
-		color: var(--ink);
+	.prose :global(.copy-code::after) {
+		position: absolute;
+		inset: -0.375rem;
+		content: '';
 	}
 	.prose :global(.copy-code:active) {
 		scale: 0.96;
 	}
 	.prose :global(.copy-code.is-copied) {
 		color: #7ee787;
+	}
+	.prose :global(.code-copy-status) {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+	@media (hover: hover) {
+		.prose :global(.copy-code:hover) {
+			background: var(--raised);
+			color: var(--ink);
+		}
 	}
 	.prose :global(.token.comment),
 	.prose :global(.token.prolog),
@@ -301,5 +353,29 @@
 		color: var(--ink);
 		font-family: var(--font);
 		font-size: 0.875rem;
+	}
+	.prose :global(table) {
+		width: 100%;
+		margin: 2rem 0;
+		border-collapse: collapse;
+		font-size: 0.8125rem;
+		line-height: 1.65;
+	}
+	.prose :global(thead) {
+		background: var(--surface);
+	}
+	.prose :global(th),
+	.prose :global(td) {
+		padding: 0.75rem 0.85rem;
+		border-bottom: 1px solid var(--line);
+		text-align: left;
+		vertical-align: top;
+	}
+	.prose :global(th) {
+		color: var(--ink);
+		font-weight: 600;
+	}
+	.prose :global(td) {
+		color: var(--muted);
 	}
 </style>
