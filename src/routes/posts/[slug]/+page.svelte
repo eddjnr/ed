@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ListIcon from '@lucide/svelte/icons/list';
+	import { tick } from 'svelte';
 	import { copyableCode } from '$lib/actions/copyable-code';
 	import SeoHead from '$lib/components/seo-head.svelte';
 	import { formatCalendarDate } from '$lib/utils/date';
@@ -8,6 +8,73 @@
 	type Heading = { id: string; label: string; level: 2 | 3 };
 	let headings = $state<Heading[]>([]);
 	let activeHeading = $state('');
+	let railPath = $state('');
+	let railHeight = $state(0);
+	let activeRailTop = $state(0);
+	let activeRailBottom = $state(0);
+	let railFrame = 0;
+
+	function railX(link: HTMLAnchorElement) {
+		return link.dataset.level === '3' ? 16.5 : 8.5;
+	}
+
+	function measureRail(node: HTMLElement) {
+		cancelAnimationFrame(railFrame);
+		railFrame = requestAnimationFrame(() => {
+			const content = node.querySelector<HTMLElement>('[data-toc-content]');
+			if (!content) return;
+
+			const links = Array.from(content.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+			if (links.length === 0) return;
+
+			const height = Math.ceil(content.offsetHeight);
+			const startY = Math.min(6, height);
+			let previousX = railX(links[0]);
+			let path = `M ${previousX} ${startY}`;
+
+			for (const link of links.slice(1)) {
+				const nextX = railX(link);
+				const boundary = link.offsetTop;
+				const curveStart = Math.max(startY, boundary - 6);
+				const curveEnd = Math.min(height, boundary + 6);
+				path += ` L ${previousX} ${curveStart} C ${previousX} ${boundary + 2} ${nextX} ${boundary - 2} ${nextX} ${curveEnd}`;
+				previousX = nextX;
+			}
+
+			path += ` L ${previousX} ${height}`;
+			railPath = path;
+			railHeight = height;
+
+			const activeLink = links.find((link) => link.dataset.active === 'true');
+			if (activeLink) {
+				activeRailTop = activeLink.offsetTop;
+				activeRailBottom = activeLink.offsetTop + activeLink.offsetHeight;
+			}
+		});
+	}
+
+	function tocRail(node: HTMLElement, _activeId: string) {
+		const resizeObserver = new ResizeObserver(() => measureRail(node));
+		const content = node.querySelector<HTMLElement>('[data-toc-content]');
+		if (content) resizeObserver.observe(content);
+		measureRail(node);
+
+		return {
+			update() {
+				void updateRailAfterRender(node);
+			},
+			destroy() {
+				cancelAnimationFrame(railFrame);
+				resizeObserver.disconnect();
+			}
+		};
+	}
+
+	async function updateRailAfterRender(node: HTMLElement) {
+		await tick();
+		measureRail(node);
+	}
+
 	function tableOfContents(node: HTMLElement) {
 		const usedIds = new Set<string>();
 		const elements = Array.from(node.querySelectorAll<HTMLElement>('h2, h3'));
@@ -44,7 +111,8 @@
 				const current = elements.reduce((active, heading) => {
 					return heading.getBoundingClientRect().top <= 160 ? heading : active;
 				}, elements[0]);
-				activeHeading = current?.id ?? '';
+				const nextActiveHeading = current?.id ?? '';
+				if (activeHeading !== nextActiveHeading) activeHeading = nextActiveHeading;
 			});
 		};
 
@@ -92,34 +160,73 @@
 	publishedTime={data.metadata.date}
 />
 
-<article class="page w-full">
+<article class="page relative w-full">
 	<div class="block">
 		{#if headings.length > 0}
-			<aside
-				class="reveal fixed top-[clamp(5.5rem,12vh,7rem)] left-[max(1.5rem,env(safe-area-inset-left))] max-h-[calc(100dvh-7rem)] w-[min(15rem,calc((100vw-42rem)/2-3.5rem))] overflow-y-auto py-1 [scrollbar-color:var(--line)_transparent] [scrollbar-width:thin] max-[1120px]:hidden"
-				aria-label="Table of contents"
+			<div
+				class="absolute inset-y-0 left-[calc((100vw-42rem)/-2+1.5rem)] w-[min(15rem,calc((100vw-42rem)/2-3.5rem))] max-[1120px]:hidden"
 			>
-				<div
-					class="mb-3 flex items-center gap-2 [font-family:var(--mono)] text-[0.6875rem] text-[var(--muted)]"
+				<aside
+					class="toc-panel reveal sticky top-[clamp(5.5rem,12vh,7rem)] max-h-[calc(100dvh-7rem)] overflow-y-auto py-1 [scrollbar-color:var(--line)_transparent] [scrollbar-width:thin]"
+					aria-label="Table of contents"
 				>
-					<ListIcon size={14} strokeWidth={1.75} aria-hidden="true" />
-					<span>On this page</span>
-				</div>
-				<nav class="grid" aria-label="Article sections">
-					{#each headings as heading}
+					<div
+						class="mb-4 [font-family:var(--mono)] text-[0.625rem] tracking-[0.18em] text-[var(--muted)] uppercase"
+					>
+						On this page
+					</div>
+					<nav class="relative" aria-label="Article sections" use:tocRail={activeHeading}>
+					{#if railPath}
+						<svg
+							class="pointer-events-none absolute top-0 -left-2 h-auto w-[1.53125rem] overflow-visible"
+							aria-hidden="true"
+							viewBox={`0 0 24.5 ${railHeight}`}
+							width="24.5"
+							height={railHeight}
+						>
+							<path
+								d={railPath}
+								fill="none"
+								stroke="var(--quiet)"
+								stroke-width="1"
+								vector-effect="non-scaling-stroke"
+							/>
+						</svg>
+						<svg
+							class="pointer-events-none absolute top-0 -left-2 h-auto w-[1.53125rem] overflow-visible transition-[clip-path] duration-[160ms] ease-out"
+							aria-hidden="true"
+							viewBox={`0 0 24.5 ${railHeight}`}
+							width="24.5"
+							height={railHeight}
+							style:clip-path={`polygon(0px ${activeRailTop}px, 100% ${activeRailTop}px, 100% ${activeRailBottom}px, 0px ${activeRailBottom}px)`}
+						>
+							<path
+								d={railPath}
+								fill="none"
+								stroke="var(--ink)"
+								stroke-width="1"
+								vector-effect="non-scaling-stroke"
+							/>
+						</svg>
+					{/if}
+						<div class="relative grid" data-toc-content>
+							{#each headings as heading}
 						<a
-							class="relative flex min-h-7 items-center py-[0.3rem] pr-3 pl-4 text-[0.75rem] leading-[1.45] [text-wrap:pretty] text-[var(--quiet)] no-underline transition-[color,transform] duration-[160ms] before:absolute before:top-2 before:bottom-2 before:left-0 before:w-px before:origin-center before:bg-[var(--line)] before:transition-[background-color,transform] before:duration-[160ms] before:content-[''] hover:translate-x-0.5 hover:text-[var(--muted)] active:scale-[0.96] data-[active=true]:text-[var(--ink)] data-[active=true]:before:scale-y-[1.35] data-[active=true]:before:bg-[var(--accent)] data-[level=3]:pl-7"
+							class="relative flex min-h-7 items-center py-1 pr-3 pl-3 text-[0.8125rem] leading-[1.45] [text-wrap:pretty] text-[var(--quiet)] no-underline transition-[color] duration-[160ms] hover:text-[var(--muted)] data-[active=true]:text-[var(--ink)] data-[level=3]:pl-5"
+							data-toc-link
 							data-active={heading.id === activeHeading}
 							data-level={heading.level}
 							href="#{heading.id}"
 							aria-current={heading.id === activeHeading ? 'location' : undefined}
 							onclick={(event) => jumpToHeading(event, heading.id)}
 						>
-							{heading.label}
+							<span>{heading.label}</span>
 						</a>
-					{/each}
-				</nav>
-			</aside>
+							{/each}
+						</div>
+					</nav>
+				</aside>
+			</div>
 		{/if}
 
 		<div class="w-full min-w-0">
@@ -155,6 +262,12 @@
 </article>
 
 <style>
+	.toc-panel::-webkit-scrollbar-button {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+
 	.prose :global(h2) {
 		margin: 3rem 0 1rem;
 		color: var(--ink);
