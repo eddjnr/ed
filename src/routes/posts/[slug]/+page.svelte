@@ -245,7 +245,7 @@
 				>
 					{data.metadata.title}
 				</h1>
-				<p class="mt-4 mb-0 max-w-[40rem] text-sm leading-[1.7] text-[var(--muted)]">
+				<p class="mt-4 mb-0 max-w-[40rem] text-base leading-[1.7] text-[var(--muted)]">
 					{data.metadata.description}
 				</p>
 			</header>
@@ -465,7 +465,7 @@
 		border-left: 1px solid var(--line);
 		color: var(--ink);
 		font-family: var(--font);
-		font-size: 0.875rem;
+		font-size: 1rem;
 	}
 	.prose :global(table) {
 		width: 100%;

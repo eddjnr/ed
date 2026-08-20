@@ -4,7 +4,7 @@
 </script>
 
 <SeoHead
-	title="About Ed — Software Engineer"
+	title="About Ed"
 	description="Learn about Ed's software engineering experience, frontend specialization, education and professional credentials."
 	path="/about"
 />
@@ -13,7 +13,24 @@
 	<header class="reveal">
 		<span class="eyebrow">Career · 2019–Present</span>
 		<h1 class="page-title">About</h1>
-		<p class="lede">Professional experience building product interfaces and frontend systems.</p>
+		<div class="about-intro lede">
+			<p>
+				Hey, I'm Ednilson. I'm a <strong>Software Engineer</strong> from Parintins, Amazonas,
+				now based in Campinas, São Paulo.
+			</p>
+			<p>
+				I started my career in software in 2019 and today I work as a
+				<strong>Frontend Specialist at Conexa Saúde</strong>. My background is in frontend
+				development, but I'm especially interested in everything around digital products —
+				<strong>interfaces, design systems, architecture, and developer experience</strong>.
+			</p>
+			<p>
+				I enjoy turning complex problems into software that feels
+				<strong>simple, thoughtful, and enjoyable to use</strong>. Along the way, I've worked across
+				frontend and full-stack development, from industrial dashboards to financial systems and
+				healthcare products.
+			</p>
+		</div>
 	</header>
 
 	<section class="history-section reveal" style="--delay: 80ms" aria-labelledby="experience-title">
@@ -70,8 +87,18 @@
 </div>
 
 <style>
-	header .lede {
+	header .about-intro {
 		margin: 0.75rem 0 0;
+	}
+	.about-intro p {
+		margin: 0;
+	}
+	.about-intro p + p {
+		margin-top: 0.75rem;
+	}
+	.about-intro strong {
+		color: var(--ink);
+		font-weight: 600;
 	}
 	.history-section {
 		margin-top: 3.5rem;
@@ -98,7 +125,7 @@
 	}
 	.history-copy strong {
 		display: block;
-		font-size: 0.875rem;
+		font-size: 1rem;
 		font-weight: 600;
 		letter-spacing: -0.01em;
 	}

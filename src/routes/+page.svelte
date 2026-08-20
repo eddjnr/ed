@@ -7,7 +7,7 @@
 </script>
 
 <SeoHead
-	title="Ed — Frontend Software Engineer"
+	title="Ed"
 	description="Portfolio of Ed, a software engineer specializing in frontend architecture, design systems and thoughtful digital products."
 	path="/"
 />
@@ -32,7 +32,7 @@
 						class="m-0 text-base leading-[1.4] font-semibold tracking-[-0.015em]"
 						id="intro-title"
 					>
-						Ed
+						(Ed)nilson Albuquerque
 					</h1>
 					<p class="mt-[0.1rem] mb-0 text-[var(--muted)]">Software Engineer</p>
 				</div>
@@ -40,8 +40,7 @@
 
 			<div class="mt-6 max-w-[35rem] [&_p]:mb-3 [&_p]:text-[var(--muted)] [&_p:last-child]:mb-0">
 				<p>
-					Software Engineer and Frontend Specialist.
-					I build digital products with a focus on frontend, design systems and architecture, always caring about the details that make software simple and enjoyable to use.
+					I build digital products with a focus on frontend, design systems and architecture, with attention to the details that make software simple and enjoyable to use.
 				</p>
 				<p>Based in Campinas, São Paulo. Originally from Parintins, Amazonas.</p>
 			</div>

@@ -3,7 +3,7 @@
 </script>
 
 <SeoHead
-	title="Contact Ed — Software Engineer"
+	title="Contact Ed"
 	description="Contact Ed by email or connect through GitHub and LinkedIn to discuss software engineering, frontend systems and product work."
 	path="/contact"
 />

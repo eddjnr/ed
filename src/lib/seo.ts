@@ -1,5 +1,5 @@
 export const site = {
-  name: "Ed — Software Engineer",
+  name: "Ed",
   shortName: "Ed",
   url: "https://edd-jnr.vercel.app",
   description:

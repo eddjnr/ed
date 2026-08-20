@@ -117,7 +117,7 @@
 		border-bottom: 1px solid var(--line);
 	}
 	.empty-state strong {
-		font-size: 0.875rem;
+		font-size: 1rem;
 		font-weight: 600;
 	}
 	.empty-state p {
