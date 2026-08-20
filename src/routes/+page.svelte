@@ -40,12 +40,10 @@
 
 			<div class="mt-6 max-w-[35rem] [&_p]:mb-3 [&_p]:text-[var(--muted)] [&_p:last-child]:mb-0">
 				<p>
-					I’m a software engineer. I have a degree in Software Engineering and work as a Frontend
-					Specialist at Conexa Saúde. My background is in frontend development, but I love
-					everything around digital products — interfaces, design systems, architecture and the
-					details that make software feel good to use.
+					Software Engineer and Frontend Specialist.
+					I build digital products with a focus on frontend, design systems and architecture, always caring about the details that make software simple and enjoyable to use.
 				</p>
-				<p>I live in Campinas, São Paulo, but I was born and raised in Parintins, Amazonas.</p>
+				<p>Based in Campinas, São Paulo. Originally from Parintins, Amazonas.</p>
 			</div>
 		</div>
 
